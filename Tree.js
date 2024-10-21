@@ -3,6 +3,10 @@ import Node from "./Node.js";
 export default class Tree {
     #root = new Node();
 
+    get root() {
+        return this.#root;
+    }
+
     sortAndRemoveDuplicates(array) {
             const set = new Set(array);
             return Array.from(set).sort((a, b) => a - b);
@@ -25,4 +29,17 @@ export default class Tree {
         currentNode.rightNode = this.buildTree(array.slice(midPoint + 1));
         return currentNode;
     }
+
+    prettyPrint(node, prefix = "", isLeft = true) {
+        if (node.value === null) {
+          return;
+        }
+        if (node.rightNode !== null) {
+          this.prettyPrint(node.rightNode, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        }
+        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
+        if (node.leftNode !== null) {
+          this.prettyPrint(node.leftNode, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        }
+      }
 }
