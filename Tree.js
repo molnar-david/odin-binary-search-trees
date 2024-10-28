@@ -121,4 +121,28 @@ export default class Tree {
         }
         return null;
     }
+
+    // // Recursion
+    // levelOrder(callback, queue = [], node = this.#root) {
+    //     if (node === null || node.value === null || !callback) return;
+    //     callback(node);
+    //     queue.push(node.leftNode);
+    //     queue.push(node.rightNode);
+    //     while (queue.length) {
+    //         this.levelOrder(callback, queue, queue.shift());
+    //     }
+    // }
+
+    // Iteration
+    levelOrder(callback) {
+        const queue = [this.#root];
+        while (queue.length) {
+            const node = queue.shift();
+            if (node !== null && node.value !== null && callback) {
+                callback(node);
+                queue.push(node.leftNode);
+                queue.push(node.rightNode);
+            }
+        }
+    }
 }
