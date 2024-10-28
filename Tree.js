@@ -30,7 +30,7 @@ export default class Tree {
     }
 
     prettyPrint(node, prefix = "", isLeft = true) {
-        if (node.value === null) {
+        if (node === null || node.value === null) {
             return;
         }
         if (node.rightNode !== null) {
@@ -104,5 +104,21 @@ export default class Tree {
                 targetNode.value = successorValue;
             }
         }
+    }
+
+    find(value) {
+        let currentNode = this.#root;
+        let prevNode = null;
+        while (currentNode) {
+            if (currentNode.value === value) return currentNode;
+
+            prevNode = currentNode;
+            if (value < currentNode.value) {
+                currentNode = currentNode.leftNode;
+            } else {
+                currentNode = currentNode.rightNode;
+            }
+        }
+        return null;
     }
 }
