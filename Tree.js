@@ -1,7 +1,7 @@
 import Node from "./Node.js";
 
 export default class Tree {
-    #root = new Node();
+    #root = null;
 
     get root() {
         return this.#root;
@@ -16,8 +16,9 @@ export default class Tree {
         if (!array.length) return null;
 
         let currentNode = new Node();
-        if (!this.#root.value) {
+        if (this.#root === null) {
             array = this.sortAndRemoveDuplicates(array);
+            this.#root = new Node();
             currentNode = this.#root;
         }
         const midPoint = Math.floor((array.length - 1) / 2);
@@ -30,7 +31,7 @@ export default class Tree {
     }
 
     prettyPrint(node, prefix = "", isLeft = true) {
-        if (node === null || node.value === null) {
+        if (node === null) {
             return;
         }
         if (node.rightNode !== null) {
@@ -122,27 +123,48 @@ export default class Tree {
         return null;
     }
 
-    // // Recursion
-    // levelOrder(callback, queue = [], node = this.#root) {
-    //     if (node === null || node.value === null || !callback) return;
-    //     callback(node);
-    //     queue.push(node.leftNode);
-    //     queue.push(node.rightNode);
+    // Recursion
+    levelOrder(callback, queue = [], currentNode = this.#root) {
+        if (currentNode === null) return;
+        callback(currentNode);
+        queue.push(currentNode.leftNode);
+        queue.push(currentNode.rightNode);
+        while (queue.length) {
+            this.levelOrder(callback, queue, queue.shift());
+        }
+    }
+
+    // // Iteration
+    // levelOrder(callback) {
+    //     const queue = [this.#root];
     //     while (queue.length) {
-    //         this.levelOrder(callback, queue, queue.shift());
+    //         const currentNode = queue.shift();
+    //         if (currentNode !== null) {
+    //             callback(currentNode);
+    //             queue.push(currentNode.leftNode);
+    //             queue.push(currentNode.rightNode);
+    //         }
     //     }
     // }
 
-    // Iteration
-    levelOrder(callback) {
-        const queue = [this.#root];
-        while (queue.length) {
-            const node = queue.shift();
-            if (node !== null && node.value !== null && callback) {
-                callback(node);
-                queue.push(node.leftNode);
-                queue.push(node.rightNode);
-            }
-        }
+    inOrder(callback, currentNode = this.#root) {
+        if (currentNode === null) return;
+        this.inOrder(callback, currentNode.leftNode);
+        callback(currentNode);
+        this.inOrder(callback, currentNode.rightNode);
+    }
+
+    preOrder(callback, currentNode = this.#root) {
+        if (currentNode === null) return;
+        callback(currentNode);
+        this.preOrder(callback, currentNode.leftNode);
+        this.preOrder(callback, currentNode.rightNode);
+    }
+
+    postOrder(callback, currentNode = this.#root) {
+        if (currentNode === null) return;
+        this.postOrder(callback, currentNode.leftNode);
+        this.postOrder(callback, currentNode.rightNode);
+        callback(currentNode);
     }
 }
