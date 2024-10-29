@@ -17,3 +17,5 @@ console.log('Preorder:');
 tree.preOrder(console.log);
 console.log('Postorder:');
 tree.postOrder(console.log);
+tree.prettyPrint(tree.find(67));
+console.log(tree.height(tree.find(67)));

@@ -167,4 +167,15 @@ export default class Tree {
         this.postOrder(callback, currentNode.rightNode);
         callback(currentNode);
     }
+
+    height(node) {
+        if (node === null) return -1;
+        const leftHeight = this.height(node.leftNode);
+        const rightHeight = this.height(node.rightNode);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    depth(node) {
+
+    }
 }
