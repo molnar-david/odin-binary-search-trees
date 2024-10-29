@@ -18,4 +18,8 @@ tree.preOrder(console.log);
 console.log('Postorder:');
 tree.postOrder(console.log);
 tree.prettyPrint(tree.find(67));
+console.log('Height:');
 console.log(tree.height(tree.find(67)));
+tree.prettyPrint(tree.root);
+console.log('Depth:');
+console.log(tree.depth(tree.find(6345)));

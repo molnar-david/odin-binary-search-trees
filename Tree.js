@@ -176,6 +176,17 @@ export default class Tree {
     }
 
     depth(node) {
-
+        let currentNode = this.#root;
+        let prevNode = null;
+        let depth = 0;
+        while (currentNode) {
+            prevNode = currentNode;
+            if (node.value < currentNode.value) {
+                currentNode = currentNode.leftNode;
+            } else if (node.value > currentNode.value) {
+                currentNode = currentNode.rightNode;
+            } else return depth;
+            ++depth;
+        }
     }
 }
