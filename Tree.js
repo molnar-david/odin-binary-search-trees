@@ -169,7 +169,7 @@ export default class Tree {
     }
 
     height(node) {
-        if (node === null) return -1;
+        if (node === null) return -1;   // Will be called on a leaf node's subtree and incremented, -1 + 1 = 0
         const leftHeight = this.height(node.leftNode);
         const rightHeight = this.height(node.rightNode);
         return Math.max(leftHeight, rightHeight) + 1;
@@ -188,5 +188,13 @@ export default class Tree {
             } else return depth;
             ++depth;
         }
+    }
+
+    isBalanced(node = this.#root) {
+        if (node === null) return true;
+        const leftHeight = this.height(node.leftNode);
+        const rightHeight = this.height(node.rightNode);
+        if (Math.abs(leftHeight - rightHeight) > 1) return false;
+        return this.isBalanced(node.leftNode) && this.isBalanced(node.rightNode);
     }
 }

@@ -23,3 +23,4 @@ console.log(tree.height(tree.find(67)));
 tree.prettyPrint(tree.root);
 console.log('Depth:');
 console.log(tree.depth(tree.find(6345)));
+console.log(tree.isBalanced());
