@@ -197,4 +197,11 @@ export default class Tree {
         if (Math.abs(leftHeight - rightHeight) > 1) return false;
         return this.isBalanced(node.leftNode) && this.isBalanced(node.rightNode);
     }
+
+    rebalance() {
+        if (this.isBalanced()) return;
+        const array = [];
+        this.inOrder((elem) => array.push(elem.value));
+        this.#root = this.buildTree(array);
+    }
 }
