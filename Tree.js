@@ -3,6 +3,10 @@ import Node from "./Node.js";
 export default class Tree {
     #root = null;
 
+    constructor (array) {
+        this.buildTree(array);
+    }
+
     get root() {
         return this.#root;
     }
@@ -30,7 +34,7 @@ export default class Tree {
         return currentNode;
     }
 
-    prettyPrint(node, prefix = "", isLeft = true) {
+    prettyPrint(node = this.#root, prefix = "", isLeft = true) {
         if (node === null) {
             return;
         }
